@@ -1,9 +1,9 @@
-// Khai báo hàm chỉ báo sử dụng trong thuật toán (Bắt buộc)
+// Khai báo hàm trả về chỉ báo sử dụng trong thuật toán (Bắt buộc)
 function indicator() {
     return ["BB(20,2)"];
 }
 
-// Khai báo hàm dự đoán (Bắt buộc)
+// Khai báo hàm trả về dự đoán (Bắt buộc)
 async function predict() {
     var candle = await now("candle"); // Lấy dữ liệu nến
     var bollingerBands = await now("BB(20,2)"); // Lấy dữ liệu Bollinger Bands

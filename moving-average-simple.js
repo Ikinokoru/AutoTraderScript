@@ -1,16 +1,13 @@
-// Khai báo hàm chỉ báo sử dụng trong thuật toán (Bắt buộc)
+// Khai báo hàm trả về chỉ báo sử dụng trong thuật toán (Bắt buộc)
 function indicator() {
     return ["MA(5,close,0)", "MA(10,close,0)"]; 
 }
 
-// Khai báo hàm dự đoán (Bắt buộc)
+// Khai báo hàm trả về dự đoán (Bắt buộc)
 async function predict() {
     var candle = await now("candle"); // Lấy dữ liệu nến
     var ma5 = await now("MA(5,close,0)"); // Lấy dữ liệu đường MA5
     var ma10 = await now("MA(10,close,0)"); // Lấy dữ liệu đường MA10
-    console.log(ma5);
-    console.log(ma10);
-    console.log(candle);
     // Kiểm tra đường MA5 nằm trên đường MA10
     if(ma5.value > ma10.value) {
         if(candle.close > ma10.value) // Kiểm tra nến nằm trên MA10
