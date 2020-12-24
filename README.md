@@ -1,8 +1,8 @@
-# AutoTraderScript
+![](https://i.imgur.com/E9DWUHL.png)
 
-### **Hướng dẫn cơ bản cách xây dựng thuật toán cho bot với Javascript** 
+### Giới thiệu về thuật toán tuỳ chỉnh của bot  
 
-
+Thuật toán tuỳ chỉnh là thuật toán do người dùng tự viết ra hoặc thêm từ thư viện (thư viện chứa những thuật toán do đội ngủ MMD làm sẵn).
 
 Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chia nhỏ ra thành nhiều thuật toán khác nhau để chạy lệnh. Ví dụ như có thuật toán sử dụng Bollinger Band kết hợp với Orderbook, cũng có thuật toán khác sử dụng đường trung bình kêt hợp với cản... (Xem ví dụ dưới hình)
 
