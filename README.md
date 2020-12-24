@@ -65,9 +65,7 @@ async function predict() {
 }
 ```
 
-[Xem danh sách chỉ báo và  thuộc tính tại đây]: #indicator_list	"Xem danh sách chỉ báo và  thuộc tính tại đây"
-
-
+[Xem danh sách chỉ báo và thuộc tính tại đây](https://github.com/RemVN/AutoTraderScript#danh-s%C3%A1ch-ch%E1%BB%89-b%C3%A1o-v%C3%A0-thu%E1%BB%99c-t%C3%ADnh)
 
 ### **Dữ liệu ở quá khứ**
 
