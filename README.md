@@ -6,7 +6,7 @@ Thuật toán tuỳ chỉnh là thuật toán do người dùng tự viết ra h
 
 Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chia nhỏ ra thành nhiều thuật toán khác nhau để chạy lệnh. Ví dụ như có thuật toán sử dụng Bollinger Band kết hợp với Orderbook, cũng có thuật toán khác sử dụng đường trung bình kêt hợp với cản... (Xem ví dụ dưới hình)
 
-<img src="https://i.imgur.com/P07w2U9.png" alt="Người dùng có thể thêm nhiều thuật toán khác nhau cho bot chạy"  />
+<img src="https://i.imgur.com/pJ4Ubkm.png" alt="Người dùng có thể thêm nhiều thuật toán khác nhau cho bot chạy"  />
 
 ------
 
@@ -25,7 +25,7 @@ Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chi
    
    // Hàm này trả về dự đoán của thuật toán sau khi xử lý dữ liệu 
    // (trả về 1 trong 3 giá trị: up, down, skip)
-   async function predict() {
+   async function predict(stats) {
        return "skip";
    }
    ```
@@ -42,11 +42,11 @@ function indicator() {
     return ["BB(20,2)"];
 }
 
-async function predict() {
+async function predict(stats) {
     var bollingerBands = await now("BB(20,2)");
-    console.log(bollingerBands.upper_band); // In ra thuộc tính upper band (Giá trị band trên)
-    console.log(bollingerBands.middle_band); // In ra thuộc tính middle band (Giá trị band giữa)
-    console.log(bollingerBands.lower_band); // In ra thuộc tính upper band (Giá trị band dưới)
+    log(bollingerBands.upper_band); // In ra thuộc tính upper band (Giá trị band trên)
+    log(bollingerBands.middle_band); // In ra thuộc tính middle band (Giá trị band giữa)
+    log(bollingerBands.lower_band); // In ra thuộc tính upper band (Giá trị band dưới)
 
     return "skip";
 }
@@ -55,12 +55,9 @@ async function predict() {
 Sử dụng hàm `await now("candle")` để lấy dữ liệu nến ở hiện tại: 
 
 ```javascript
-async function predict() {
+async function predict(stats) {
     var candle = await now("candle");
-    console.log(candle.open); // In ra thuộc tính open (Giá mở cửa)
-    console.log(candle.close); // In ra thuộc tính close (Giá đóng cửa)
-    console.log(candle.high); // In ra thuộc tính high (Giá cao nhất)
-    console.log(candle.low); // In ra thuộc tính low (Giá thấp nhấp)
+    log(candle) // In ra dữ liệu nến
     return "skip";
 }
 ```
@@ -69,7 +66,18 @@ async function predict() {
 
 ### **Dữ liệu ở quá khứ**
 
-*Sắp ra mắt...*
+Sử dụng hàm `await past("tên chỉ báo", index)` để lấy dữ liệu của chỉ báo đó ở cây nến trước đó với **index** là thứ tự cây nến trước đó
+
+Ví dụ lấy dữ liệu đường trung bình MA10 ở cây nến trước đó:
+
+```javascript
+var ma10_past = await past("MA(10,close,2)", 0);
+log(ma10_past);
+```
+
+Xem hình minh hoạ dưới để hiểu dễ hơn
+
+![](https://i.imgur.com/ZNUyTNA.png)
 
 ### Xử lý dữ liệu và trả về dự đoán
 
@@ -80,7 +88,7 @@ function indicator() {
     return ["MA(10,close,0)"]; // Khai báo chỉ báo Ma10
 }
 
-async function predict() {
+async function predict(stats) {
     var ma10 = await now("MA(10,close,0)");
     var candle = await now("candle");
     if(candle.open < ma10.value) { // Giá đóng cửa nằm dưới MA10
@@ -92,27 +100,88 @@ async function predict() {
 }
 ```
 
+### Xuất dữ liệu ra console của bot
+
+Trong trường hợp bạn muốn kiểm tra các dữ liệu đang được tính toán như thế nào thì bạn có thể sử dụng console của bot
+
+Để kích hoạt console hãy nhấn vào nút này
+
+![](https://i.imgur.com/ubWtg2v.png)
+
+Sau đó cửa số console sẽ hiện lên
+
+<img src="https://i.imgur.com/iRtFjw1.png" style="zoom:80%;" />
+
+Xuất dữ liệu với hàm `log("dữ liệu cần xuất")`
+
+```javascript
+async function predict(stats) {
+    let ma10 = await now("MA(10,close,2)");
+    log(ma10.value);
+    
+    return "skip";
+}
+```
+
+
+
 ### Danh sách các hàm hiện có
 
-| Tên hàm                  | Giải thích                                                   |
-| ------------------------ | ------------------------------------------------------------ |
-| await now("tên chỉ báo") | Trả về dữ liệu của chỉ báo đó (Xem danh sách tên chỉ báo và thuộc tính bên dưới) |
-| await now("candle")      | Trả về dữ liệu của nến (Có các thuộc tính **open**, **high**, **low**, **close**) |
+| Tên hàm                          | Giải thích                                                   |
+| -------------------------------- | ------------------------------------------------------------ |
+| log("dữ liệu")                   | Xuất dữ liệu ra console của bot                              |
+| await now("tên chỉ báo")         | Trả về dữ liệu của chỉ báo đó (Xem danh sách tên chỉ báo và thuộc tính bên dưới) |
+| await now("candle")              | Trả về dữ liệu của nến (Có các thuộc tính **open**, **high**, **low**, **close**) |
+| await past("tên chỉ báo", index) | Trả về dữ liệu của chỉ báo đó ở cây nến trước với với **index** là thứ tự cây nến |
+| await past("candle", index)      | Trả về dữ liệu của cây nến trước đó với **index** là thứ tự cây nến |
 
 ### Danh sách chỉ báo và thuộc tính
-
-### <a name="indicator_list"></a>
 
 Một số bạn sẽ hỏi tại sao tên chỉ báo lại kiểu có đóng mở ngoặc rồi có số ở trong thì nó là tên của chỉ báo được hiển thị trên biểu đồ của binance
 
 <img src="https://i.imgur.com/hz2KrRy.png"  />
 
-Do vậy khi sử dụng chỉ báo nào thì cần phải khai báo tên trùng với tên trên biểu đồ
+Do vậy khi sử dụng chỉ báo nào thì cần phải khai báo tên trùng với tên trên biểu đồ.
 
-| Tên chỉ báo <br />và những thứ khác | Tên mẫu (dùng trong code) | Thuộc tính                                              | Giải thích thuộc tính                                        |
-| ----------------------------------- | ------------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
-| Nến                                 | candle                    | **open<br />high<br />low<br />close**                  | Giá mở cửa <br />Giá cao nhất<br />Giá thấp nhát<br />Giá đóng cửa |
-| Bollinger Band                      | BB(20,2)                  | **upper_band**<br />**middle_band**<br />**lower_band** | Giá trị band trên<br />Giá trị band giữa<br />Giá trị band dưới |
-| Moving Average                      | MA(10,close,2)            | **value**                                               | Giá trị của đường trung bình                                 |
-| Sắp cập nhật thêm....               |                           |                                                         |                                                              |
+Lưu ý: những chỉ báo có nhiều giá trị (thuộc tính) sẽ được liệt kê dưới bảng này. Những chỉ báo chỉ có 1 giá trị duy nhất nhất như đường trung bình, volume, RSI thì cách lấy tương tự nhau
+
+```javascript
+let rsi = await now("RSI(14)");
+let ma10 = await now("MA(10,close,2)");
+let volume = await now("VOLUME(20)");
+// Những chỉ báo này chỉ có 1 giá trị duy nhất
+log(rsi.value); 
+log(ma10.value);
+log(volume.value);
+```
+
+| Tên chỉ báo <br />và những thứ khác                          | Tên mẫu (dùng trong code)       | Thuộc tính                                                   | Giải thích thuộc tính                                        |
+| ------------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Những chỉ báo chỉ có<br />một giá trị duy nhất (Ví dụ Moving Average) | Ví dụ: MA(10,close,2)           | **value**                                                    | Giá trị của chỉ báo đó                                       |
+| Nến                                                          | CANDLE                          | **open<br />high<br />low<br />close**                       | Giá mở cửa <br />Giá cao nhất<br />Giá thấp nhát<br />Giá đóng cửa |
+| Bollinger Band                                               | BB(20,2)                        | **upper_band**<br />**middle_band**<br />**lower_band**      | Giá trị band trên<br />Giá trị band giữa<br />Giá trị band dưới |
+| Aroon                                                        | AROON(14)                       | **upper**<br />**lower**                                     |                                                              |
+| Chande Kroll Stop                                            | CHANDEKROLLSTOP(10,1,9)         | **long<br />short**                                          |                                                              |
+| Directional Movement (DMI)                                   | DMI(14,14)                      | **plus_di<br />minus_di<br />adx**                           | +DI<br />-DI<br />ADX                                        |
+| Donchian Channels                                            | DC(20)                          | **lower<br />upper<br />middle**                             |                                                              |
+| EMA Cross                                                    | EMACROSS(9,26)                  | **short<br />long<br />crosses**                             | <br /><br />null nếu không cắt nhau                          |
+| Envelope                                                     | ENV(20,10)                      | **middle<br />upper<br />lower**                             |                                                              |
+| Fisher Transform                                             | FISHER(9)                       | **fisher<br />trigger**                                      |                                                              |
+| Ichimoku Cloud                                               | ICHIMOKU(9,26,52,26)            | **conversion_line<br />base_line<br />lagging_span<br />lead1<br />lead2** |                                                              |
+| Keltner Channels                                             | KC(20,1)                        | **upper<br />middle<br />lower**                             |                                                              |
+| Klinger Oscillator                                           | KLINGEROSCILLATOR               | **plot<br />signal**                                         |                                                              |
+| Know Sure Thing                                              | KST(10,15,20,30,10,10,10,15,9)  | **kst<br />signal**                                          |                                                              |
+| MA Cross                                                     | MACROSS(9,26)                   | **short<br />long<br />crosses**                             | <br /><br />null khi không cắt                               |
+| MACD                                                         | MACD(12,26,close,9)             | **histogram<br />macd<br />signal**                          |                                                              |
+| Moving Average Channel                                       | MAC(20,20,0,0)                  | **upper<br />lower**                                         |                                                              |
+| Price Channel                                                | PC(20,0)                        | **highprice_line<br />lowprice_line**                        |                                                              |
+| Relative Vigor Index                                         | RVGI(10)                        | **rvgi<br />signal**                                         |                                                              |
+| SMI Ergodic Indicator/Oscillator                             | SMIIO(5,20,5)                   | **indicator<br />signal<br />oscillator**                    |                                                              |
+| Stochastic                                                   | STOCH(14,1,3)                   | **k<br />d**                                                 | Đường %k<br />Đường %d                                       |
+| Stochastic RSI                                               | STOCHRSI(14,14,3,3)             | **k<br />d**                                                 | Đường %k<br />Đường %d                                       |
+| True Strength Indicator                                      | TRUESTRENGTHINDICATOR(25,13,13) | **line1<br />line2**                                         |                                                              |
+| Vortex Indicator                                             | VI(14)                          | **vi_plus<br />vi_minus**                                    | vi+<br />vi-                                                 |
+| Williams Alligator                                           | ALLIGATOR(21,13,8)              | **jaw<br />teeth<br />lips**                                 |                                                              |
+| Williams Fractal                                             | FRACTALS(2)                     | **down_fractals<br />up_fractals**                           |                                                              |
+| ZigZag                                                       | ZIGZAG(5,10)                    | **value**                                                    | có thể null                                                  |
 
