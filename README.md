@@ -1,12 +1,12 @@
 ![](https://i.imgur.com/E9DWUHL.png)
 
-### Dành cho ai chưa tải bot
+## Dành cho ai chưa tải bot
 
 Link tải: **[Download](https://drive.google.com/file/d/1q_b1FLYqswD3pok30yUoYCdoWVK3vXCl/view?usp=sharing)**
 
 Hướng dẫn sử dụng: **[Xem](https://drive.google.com/file/d/1n0-HFdWEjbT2lpr3YI1IAu04QkCDEOw_/view)**
 
-### Giới thiệu về thuật toán tuỳ chỉnh của bot  
+## Giới thiệu về thuật toán tuỳ chỉnh của bot  
 
 Thuật toán tuỳ chỉnh là thuật toán do người dùng tự viết ra hoặc thêm từ thư viện (thư viện chứa những thuật toán do đội ngủ MMD làm sẵn).
 
@@ -16,7 +16,7 @@ Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chi
 
 ------
 
-### **Khởi tạo một file thuật toán cho bot**
+## **Khởi tạo một file thuật toán cho bot**
 
 1. Tạo một file .js trống (Bạn có thể sử dụng bất kì IDE nào hỗ trợ Javascript để code thuật toán)
 
@@ -36,7 +36,7 @@ Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chi
    }
    ```
 
-### **Dữ liệu ở hiện tại**
+## **Dữ liệu ở hiện tại**
 
 Sử dụng hàm `await now("tên chỉ báo")` để lấy dữ liệu của chỉ báo đó ở hiện tại
 
@@ -70,7 +70,7 @@ async function predict(stats) {
 
 [Xem danh sách chỉ báo và thuộc tính tại đây](https://github.com/RemVN/AutoTraderScript#danh-s%C3%A1ch-ch%E1%BB%89-b%C3%A1o-v%C3%A0-thu%E1%BB%99c-t%C3%ADnh)
 
-### **Dữ liệu ở quá khứ**
+## **Dữ liệu ở quá khứ**
 
 + Sử dụng hàm `await past("tên chỉ báo", index)` để lấy dữ liệu của chỉ báo đó ở cây nến trước đó với **index** là thứ tự cây nến trước đó. 
 
@@ -88,7 +88,7 @@ if(ma10_past != null) // Đã có dữ liệu trong quá khứ
 
 ![](https://i.imgur.com/ZNUyTNA.png)
 
-### Xử lý dữ liệu và trả về dự đoán
+## Xử lý dữ liệu và trả về dự đoán
 
 Ví dụ kiểm tra nến cắt lên đường Moving Average 10 và trả về dự đoán tăng:
 
@@ -109,7 +109,7 @@ async function predict(stats) {
 }
 ```
 
-### Xuất dữ liệu ra console của bot
+## Xuất dữ liệu ra console của bot
 
 Trong trường hợp bạn muốn kiểm tra các dữ liệu đang được tính toán như thế nào thì bạn có thể sử dụng console của bot
 
@@ -134,7 +134,7 @@ async function predict(stats) {
 
 
 
-### Danh sách các hàm hiện có
+## Danh sách các hàm hiện có
 
 | Tên hàm                          | Giải thích                                                   |
 | -------------------------------- | ------------------------------------------------------------ |
@@ -144,7 +144,7 @@ async function predict(stats) {
 | await past("tên chỉ báo", index) | Trả về dữ liệu của chỉ báo đó ở cây nến trước với với **index** là thứ tự cây nến |
 | await past("candle", index)      | Trả về dữ liệu của cây nến trước đó với **index** là thứ tự cây nến |
 
-### Danh sách chỉ báo và thuộc tính
+## Danh sách chỉ báo và thuộc tính
 
 Một số bạn sẽ hỏi tại sao tên chỉ báo lại kiểu có đóng mở ngoặc rồi có số ở trong thì nó là tên của chỉ báo được hiển thị trên biểu đồ của binance
 
