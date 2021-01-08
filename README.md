@@ -116,7 +116,7 @@ Xuất dữ liệu với hàm `log("dữ liệu cần xuất")`
 
 ```javascript
 async function predict(stats) {
-    let ma10 = await now("MA(10,close,2)");
+    var ma10 = await now("MA(10,close,2)");
     log(ma10.value);
     
     return "skip";
@@ -143,12 +143,12 @@ Một số bạn sẽ hỏi tại sao tên chỉ báo lại kiểu có đóng m�
 
 Do vậy khi sử dụng chỉ báo nào thì cần phải khai báo tên trùng với tên trên biểu đồ.
 
-Lưu ý: những chỉ báo có nhiều giá trị (thuộc tính) sẽ được liệt kê dưới bảng này. Những chỉ báo chỉ có 1 giá trị duy nhất nhất như đường trung bình, volume, RSI thì cách lấy tương tự nhau
+**Lưu ý: những chỉ báo có nhiều giá trị (thuộc tính) sẽ được liệt kê dưới bảng này. Những chỉ báo chỉ có 1 giá trị duy nhất nhất như đường trung bình, volume, RSI thì cách lấy giá trị tương tự nhau**
 
 ```javascript
-let rsi = await now("RSI(14)");
-let ma10 = await now("MA(10,close,2)");
-let volume = await now("VOLUME(20)");
+var rsi = await now("RSI(14)");
+var ma10 = await now("MA(10,close,2)");
+var volume = await now("VOLUME(20)");
 // Những chỉ báo này chỉ có 1 giá trị duy nhất
 log(rsi.value); 
 log(ma10.value);

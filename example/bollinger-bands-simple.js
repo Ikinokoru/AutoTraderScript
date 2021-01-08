@@ -4,7 +4,7 @@ function indicator() {
 }
 
 // Khai báo hàm trả về dự đoán (Bắt buộc)
-async function predict() {
+async function predict(stats) {
     var candle = await now("candle"); // Lấy dữ liệu nến
     var bollingerBands = await now("BB(20,2)"); // Lấy dữ liệu Bollinger Bands
     if(candle.close > bollingerBands.upper_band) // Kiểm tra giá nằm trên band trên
