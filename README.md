@@ -79,7 +79,7 @@ async function predict(stats) {
 ```javascript
 var ma10_past = await past("MA(10,close,2)", 0);
 if(ma10_past != null) // Đã có dữ liệu trong quá khứ
-	log(ma10_past);
+    log(ma10_past);
 ```
 
 * Xem hình minh hoạ dưới để hiểu dễ hơn:
