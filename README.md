@@ -72,16 +72,19 @@ async function predict(stats) {
 
 ### **Dữ liệu ở quá khứ**
 
-Sử dụng hàm `await past("tên chỉ báo", index)` để lấy dữ liệu của chỉ báo đó ở cây nến trước đó với **index** là thứ tự cây nến trước đó
++ Sử dụng hàm `await past("tên chỉ báo", index)` để lấy dữ liệu của chỉ báo đó ở cây nến trước đó với **index** là thứ tự cây nến trước đó. 
 
-Ví dụ lấy dữ liệu đường trung bình MA10 ở cây nến trước đó:
+  **Lưu ý: nếu chưa có sẵn dữ liệu trong quá khứ thì hàm sẽ trả về null. Bạn phải kiểm tra null khi sử dụng hàm này**
+
++ Ví dụ lấy dữ liệu đường trung bình MA10 ở cây nến trước đó:
 
 ```javascript
 var ma10_past = await past("MA(10,close,2)", 0);
-log(ma10_past);
+if(ma10_past != null) // Đã có dữ liệu trong quá khứ
+	log(ma10_past);
 ```
 
-Xem hình minh hoạ dưới để hiểu dễ hơn
+* Xem hình minh hoạ dưới để hiểu dễ hơn:
 
 ![](https://i.imgur.com/ZNUyTNA.png)
 
