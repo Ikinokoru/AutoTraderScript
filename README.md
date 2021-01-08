@@ -14,8 +14,6 @@ Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chi
 
 <img src="https://i.imgur.com/pJ4Ubkm.png" alt="Người dùng có thể thêm nhiều thuật toán khác nhau cho bot chạy"  />
 
-------
-
 ## **Khởi tạo một file thuật toán cho bot**
 
 1. Tạo một file .js trống (Bạn có thể sử dụng bất kì IDE nào hỗ trợ Javascript để code thuật toán)
