@@ -1,5 +1,11 @@
 ![](https://i.imgur.com/E9DWUHL.png)
 
+### Dành cho ai chưa tải bot
+
+Link tải: **[Download](https://drive.google.com/file/d/1q_b1FLYqswD3pok30yUoYCdoWVK3vXCl/view?usp=sharing)**
+
+Hướng dẫn sử dụng: **[Xem](https://drive.google.com/file/d/1n0-HFdWEjbT2lpr3YI1IAu04QkCDEOw_/view)**
+
 ### Giới thiệu về thuật toán tuỳ chỉnh của bot  
 
 Thuật toán tuỳ chỉnh là thuật toán do người dùng tự viết ra hoặc thêm từ thư viện (thư viện chứa những thuật toán do đội ngủ MMD làm sẵn).
