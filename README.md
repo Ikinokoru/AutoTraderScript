@@ -161,7 +161,7 @@ log(rsi.value);
 log(ma10.value);
 log(volume.value);
 
-// Những chỉ báo này có nhiều hơn 1 giá trị
+// Những chỉ báo có nhiều hơn 1 giá trị
 var bb = await now("BB(20,2)");
 log(bb.upper_band);
 log(bb.middle_band);
