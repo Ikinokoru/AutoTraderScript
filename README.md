@@ -153,13 +153,19 @@ Do vậy khi sử dụng chỉ báo nào thì cần phải khai báo tên trùng
 **Lưu ý: những chỉ báo có nhiều giá trị (thuộc tính) sẽ được liệt kê dưới bảng này. Những chỉ báo chỉ có 1 giá trị duy nhất nhất như đường trung bình, volume, RSI thì cách lấy giá trị tương tự nhau**
 
 ```javascript
+// Những chỉ báo chỉ có 1 giá trị
 var rsi = await now("RSI(14)");
 var ma10 = await now("MA(10,close,2)");
 var volume = await now("VOLUME(20)");
-// Những chỉ báo này chỉ có 1 giá trị duy nhất
 log(rsi.value); 
 log(ma10.value);
 log(volume.value);
+
+// Những chỉ báo này có nhiều hơn 1 giá trị
+var bb = await now("BB(20,2)");
+log(bb.upper_band);
+log(bb.middle_band);
+log(bb.lower_band);
 ```
 
 | Tên chỉ báo <br />và những thứ khác                    | Tên mẫu (dùng trong code)       | Thuộc tính                                                   | Giải thích thuộc tính                                        |
