@@ -181,6 +181,8 @@ async function predict(bot) {
 }
 ```
 
+## User input (Nâng cao)
+
 
 
 ## Danh sách các hàm hiện có

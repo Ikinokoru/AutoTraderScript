@@ -4,7 +4,7 @@ function indicator() {
 }
 
 // Khai báo hàm trả về dự đoán (Bắt buộc)
-async function predict(stats) {
+async function predict(bot) {
     var candle = await now("candle"); // Lấy dữ liệu nến
     var ma5 = await now("MA(5,close,0)"); // Lấy dữ liệu đường MA5
     var ma10 = await now("MA(10,close,0)"); // Lấy dữ liệu đường MA10
