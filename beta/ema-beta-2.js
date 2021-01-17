@@ -4,7 +4,7 @@ function indicator() {
 
 function userInput() {
     let inputs = [];
-    inputs.push(createInput("Vào lệnh khi (...) liên tiếp", "win", "select", ["win", "loss", "none"]));
+    inputs.push(createInput("Vào lệnh khi (...) liên tiếp", "loss", "select", ["win", "loss", "none"]));
     inputs.push(createInput("Số lệnh (thắng/thua) liên tiếp", 2, "number"));
     return inputs;
 }
@@ -51,7 +51,7 @@ async function predict(bot) {
             canOrder = false;
         else {
             for (var i = 0; i < simulateAmount; i++)
-            if (simulateHistory[i] != typeAsBoolean)
+            if (simulateHistory[i].win != typeAsBoolean)
                 canOrder = false;
         }
         bot.simulate(result);
