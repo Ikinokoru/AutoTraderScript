@@ -185,8 +185,6 @@ async function predict(bot) {
 
 Bạn có thể cho người dùng nhập dữ liệu đầu vào (input) cho script
 
-
-
 ```javascript
 function indicator() {
     return [];
@@ -243,7 +241,7 @@ async function predict(bot) {
 | Tên hàm                             | Giải thích               |
 | ----------------------------------- | ------------------------ |
 | bot.simulate("dự đoán")             | Đánh giả lập             |
-| bot.getSimulateHistory();           | Lấy lịch sử đánh giả lập |
+| bot.getSimulateHistory()            | Lấy lịch sử đánh giả lập |
 | bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng   |
 | bot.get("tên")                      | Lấy dữ liệu riêng        |
 | bot.set("tên", dữ liệu)             | Set dữ liệu riêng        |
