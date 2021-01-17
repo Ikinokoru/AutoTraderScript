@@ -2,7 +2,7 @@
 
 ## Dành cho ai chưa tải bot
 
-Link tải: **[Download](https://drive.google.com/file/d/1q_b1FLYqswD3pok30yUoYCdoWVK3vXCl/view?usp=sharing)**
+Link tải: **[Download](http://mmdbot.io/)**
 
 Hướng dẫn sử dụng: **[Xem](https://drive.google.com/file/d/1n0-HFdWEjbT2lpr3YI1IAu04QkCDEOw_/view)**
 
@@ -29,16 +29,16 @@ Bot sẽ không dùng một thuật toán duy nhất mà thay vào đó sẽ chi
    
    // Hàm này trả về dự đoán của thuật toán sau khi xử lý dữ liệu 
    // (trả về 1 trong 3 giá trị: up, down, skip)
-   async function predict(stats) {
+   async function predict(bot) {
        return "skip";
    }
    ```
 
 ## **Dữ liệu ở hiện tại**
 
-Sử dụng hàm `await now("tên chỉ báo")` để lấy dữ liệu của chỉ báo đó ở hiện tại
+Sử dụng hàm `await now("tên")` để lấy dữ liệu ở hiện tại
 
-Ví dụ lấy dữ liệu của đường Bollinger Band 20: 
+Ví dụ lấy dữ liệu của đường Bollinger Band 20 và nến:
 
 ```javascript
 // Khai báo chỉ báo Bollinger Bands trong hàm này
@@ -46,22 +46,19 @@ function indicator() {
     return ["BB(20,2)"];
 }
 
-async function predict(stats) {
+async function predict(bot) {
+    // Lấy dữ liệu đường Bollinger Bands 20
     var bollingerBands = await now("BB(20,2)");
-    log(bollingerBands.upper_band); // In ra thuộc tính upper band (Giá trị band trên)
-    log(bollingerBands.middle_band); // In ra thuộc tính middle band (Giá trị band giữa)
-    log(bollingerBands.lower_band); // In ra thuộc tính upper band (Giá trị band dưới)
+    print(bollingerBands.upper_band); 
+    print(bollingerBands.middle_band); 
+    print(bollingerBands.lower_band); 
 
-    return "skip";
-}
-```
-
-Sử dụng hàm `await now("candle")` để lấy dữ liệu nến ở hiện tại: 
-
-```javascript
-async function predict(stats) {
+    // Lấy dữ liệu nến
     var candle = await now("candle");
-    log(candle) // In ra dữ liệu nến
+    print(candle.open);
+    print(candle.high);
+    print(candle.low);
+    print(candle.close);
     return "skip";
 }
 ```
@@ -70,16 +67,17 @@ async function predict(stats) {
 
 ## **Dữ liệu ở quá khứ**
 
-+ Sử dụng hàm `await past("tên chỉ báo", index)` để lấy dữ liệu của chỉ báo đó ở cây nến trước đó với **index** là thứ tự cây nến trước đó. 
++ Sử dụng hàm `await past("tên", index)` để lấy dữ liệu ở cây nến trước đó với **index** là thứ tự cây nến trước đó. 
 
   **Lưu ý: nếu chưa có sẵn dữ liệu trong quá khứ thì hàm sẽ trả về null. Bạn phải kiểm tra null khi sử dụng hàm này**
 
 + Ví dụ lấy dữ liệu đường trung bình MA10 ở cây nến trước đó:
 
 ```javascript
-var ma10_past = await past("MA(10,close,2)", 0);
-if(ma10_past != null) // Đã có dữ liệu trong quá khứ
-    log(ma10_past);
+var maPast = await past("MA(10,close,2)", 0);
+// Đã có dữ liệu trong quá khứ
+if(maPast != null) 
+    print(maPast);
 ```
 
 * Xem hình minh hoạ dưới để hiểu dễ hơn:
@@ -92,40 +90,93 @@ Ví dụ kiểm tra nến cắt lên đường Moving Average 10 và trả về 
 
 ```javascript
 function indicator() {
-    return ["MA(10,close,0)"]; // Khai báo chỉ báo Ma10
+    // Khai báo chỉ báo Moving Average 10
+    return ["MA(10,close,0)"];
 }
 
-async function predict(stats) {
+async function predict(bot) {
     var ma10 = await now("MA(10,close,0)");
     var candle = await now("candle");
-    if(candle.open < ma10.value) { // Giá đóng cửa nằm dưới MA10
-        if(candle.close > ma10.value) { // Giá đóng cửa nằm trên MA10
-            return "up";  // Trả về dự đoán tăng
+    
+    // Giá mở cửa nằm dưới MA10
+    if(candle.open < ma10.value) { 
+        // Giá đóng cửa nằm trên MA10
+        if(candle.close > ma10.value) { 
+            // Trả về dự đoán tăng
+            return "up";  
         }
     }
-    return "skip"; // Trả về dự đoán skip nếu không phù hợp 2 điều kiện trên
+    
+    // Trả về dự đoán skip nếu không phù hợp 2 điều kiện trên
+    return "skip";
 }
 ```
 
-## Xuất dữ liệu ra console của bot
+## Xuất dữ liệu ra console
 
-Trong trường hợp bạn muốn kiểm tra các dữ liệu đang được tính toán như thế nào thì bạn có thể sử dụng console của bot
+Trong trường hợp bạn muốn debug thì có thể sử dụng nút F12 của chrome sau đó mở console lên
 
-Để kích hoạt console hãy nhấn vào nút này
-
-![](https://i.imgur.com/ubWtg2v.png)
-
-Sau đó cửa số console sẽ hiện lên
-
-<img src="https://i.imgur.com/iRtFjw1.png" style="zoom:80%;" />
-
-Xuất dữ liệu với hàm `log("dữ liệu cần xuất")`
+Xuất dữ liệu với hàm `print("dữ liệu")` hoặc hàm `printTable("mảng")`
 
 ```javascript
-async function predict(stats) {
+async function predict(bot) {
+    // In giá trị đường MA10
     var ma10 = await now("MA(10,close,2)");
-    log(ma10.value);
+    print(ma10.value); 
     
+    // In một mảng dữ liệu bất kì
+    var array = [{value: 1}, {value: 2}, {value: 3}, {value: 4}];
+    printTable(array);
+    return "skip";
+}
+```
+
+## Dự đoán giả lập (Nâng cao)
+
+Ví dụ bạn muốn bot thua 2 lệnh  liên tiếp rồi mới vào lệnh thì bạn có thể cho bot đánh giả lập trước khi đánh thật 
+
+```javascript
+async function predict(bot) {
+    // Đánh giả lập lệnh tăng
+    bot.simulate("up"); 
+    
+     // Lấy lịch sử giả lập
+    var simulateHistory = bot.getSimulateHistory();
+    printTable(simulateHistory); 
+    
+    // Kiểm tra loss 2 lệnh liên tiếp
+    var isLossTwo = true;
+    if(simulateHistory.length == 2) {
+        for(var i = 0; i < 2; i++) {
+            var element = simulateHistory[i];
+            if(element.win)
+                isLossTwo = false;
+        }
+    }
+    if(isLossTwo)
+        return "up";
+    else return "skip";
+}
+```
+
+## Lưu dữ liệu riêng (Nâng cao) 
+
+Bạn có thể lưu biến, mảng... của bạn vào bộ nhớ của bot. Dữ liệu này sẽ được lưu lại cho tới khi bot kết thúc
+
+- Khởi tạo dữ liệu:  `bot.define("tên", dữ liệu mặc định)`  
+- Lấy dữ liệu:   `bot.get("tên")` 
+- Lưu dữ liệu:   `bot.set("tên", dữ liệu)`
+
+```javascript
+async function predict(bot) {
+    // Khởi tạo dữ liệu với tên my_data và giá trị mặc định là 10
+    bot.define("my_data", 10); 
+    // In ra dữ liệu my_data
+    print(bot.get("my_data"));
+    // Set dữ liệu mới
+    bot.set("my_data", 5);
+    // In ra dữ liệu mới
+    print(bot.get("my_data"));
     return "skip";
 }
 ```
@@ -134,15 +185,28 @@ async function predict(stats) {
 
 ## Danh sách các hàm hiện có
 
-| Tên hàm                          | Giải thích                                                   |
-| -------------------------------- | ------------------------------------------------------------ |
-| log("dữ liệu")                   | Xuất dữ liệu ra console của bot                              |
-| await now("tên chỉ báo")         | Trả về dữ liệu của chỉ báo đó (Xem danh sách tên chỉ báo và thuộc tính bên dưới) |
-| await now("candle")              | Trả về dữ liệu của nến (Có các thuộc tính **open**, **high**, **low**, **close**) |
-| await past("tên chỉ báo", index) | Trả về dữ liệu của chỉ báo đó ở cây nến trước với với **index** là thứ tự cây nến |
-| await past("candle", index)      | Trả về dữ liệu của cây nến trước đó với **index** là thứ tự cây nến |
+**Các hàm cơ bản**
 
-## Danh sách chỉ báo và thuộc tính
+| Tên hàm                  | Giải thích                                                   |
+| ------------------------ | ------------------------------------------------------------ |
+| print("dữ liệu")         | Xuất ra console                                              |
+| printTable("mảng")       | Xuất mảng ra console                                         |
+| await now("tên")         | Trả về dữ liệu của chỉ báo đó (Xem danh sách tên chỉ báo và thuộc tính bên dưới |
+| await past("tên", index) | Trả về dữ liệu của chỉ báo đó ở cây nến trước với với **index** là thứ tự cây nến |
+
+**Các hàm nâng cao**
+
+| Tên hàm                             | Giải thích               |
+| ----------------------------------- | ------------------------ |
+| bot.simulate("dự đoán")             | Đánh giả lập             |
+| bot.getSimulateHistory();           | Lấy lịch sử đánh giả lập |
+| bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng   |
+| bot.get("tên")                      | Lấy dữ liệu riêng        |
+| bot.set("tên", dữ liệu)             | Set dữ liệu riêng        |
+
+
+
+## Danh sách tên dữ liệu và thuộc tính
 
 Một số bạn sẽ hỏi tại sao tên chỉ báo lại kiểu có đóng mở ngoặc rồi có số ở trong thì nó là tên của chỉ báo được hiển thị trên biểu đồ của binance
 
@@ -157,15 +221,15 @@ Do vậy khi sử dụng chỉ báo nào thì cần phải khai báo tên trùng
 var rsi = await now("RSI(14)");
 var ma10 = await now("MA(10,close,2)");
 var volume = await now("VOLUME(20)");
-log(rsi.value); 
-log(ma10.value);
-log(volume.value);
+print(rsi.value); 
+print(ma10.value);
+print(volume.value);
 
 // Những chỉ báo có nhiều hơn 1 giá trị
 var bb = await now("BB(20,2)");
-log(bb.upper_band);
-log(bb.middle_band);
-log(bb.lower_band);
+print(bb.upper_band);
+print(bb.middle_band);
+print(bb.lower_band);
 ```
 
 | Tên chỉ báo <br />và những thứ khác                    | Tên mẫu (dùng trong code)       | Thuộc tính                                                   | Giải thích thuộc tính                                        |
