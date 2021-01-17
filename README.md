@@ -183,7 +183,49 @@ async function predict(bot) {
 
 ## User input (Nâng cao)
 
+Bạn có thể cho người dùng nhập dữ liệu đầu vào (input) cho script
 
+
+
+```javascript
+function indicator() {
+    return [];
+}
+
+// Khởi tạo hàm khai báo user input 
+function userInput() {
+    var inputField = [];
+
+    // createInput(Tên, value mặc định, loại, mảng)
+    // Tên: tên hiển thị trong bot
+    // Value mặc định: dữ liệu mặc định khi mới cài hoặc khôi phục mặc định
+    // Loại: number, text, select 
+    // Mảng: dành cho loại select (không bắt buộc)
+
+    // Nhập một số 
+    inputField.push(createInput("Nhập số bất kì", 0, "number"));
+
+    // Nhập một chuỗi
+    inputField.push(createInput("Nhập chuỗi", "", "text"));
+
+    // Lựa chọn từ mảng
+    inputField.push(createInput("Lựa chọn", "yes", "select", ["yes", "no"]));
+    return inputField;
+}
+
+async function predict(bot) {
+    // Lấy mảng dữ liệu mà người dùng đã nhập
+    var inputs = bot.getUserInput();
+    var input0 = inputs[0];
+    var input1 = inputs[1];
+    var input2 = inputs[2];
+    print(input0);
+    print(input1);
+    print(input2);
+}
+```
+
+![](https://i.imgur.com/v7T2vzE.png)
 
 ## Danh sách các hàm hiện có
 
