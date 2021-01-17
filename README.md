@@ -135,6 +135,8 @@ async function predict(bot) {
 
 Ví dụ bạn muốn bot thua 2 lệnh  liên tiếp rồi mới vào lệnh thì bạn có thể cho bot đánh giả lập trước khi đánh thật 
 
+**Lưu ý: lịch sử mới sẽ được thêm vào đầu mảng (Để việc tính toán tiện hơn)**
+
 ```javascript
 async function predict(bot) {
     // Đánh giả lập lệnh tăng
@@ -238,13 +240,14 @@ async function predict(bot) {
 
 **Các hàm nâng cao**
 
-| Tên hàm                             | Giải thích               |
-| ----------------------------------- | ------------------------ |
-| bot.simulate("dự đoán")             | Đánh giả lập             |
-| bot.getSimulateHistory()            | Lấy lịch sử đánh giả lập |
-| bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng   |
-| bot.get("tên")                      | Lấy dữ liệu riêng        |
-| bot.set("tên", dữ liệu)             | Set dữ liệu riêng        |
+| Tên hàm                             | Giải thích                                                   |
+| ----------------------------------- | ------------------------------------------------------------ |
+| bot.simulate("dự đoán")             | Đánh giả lập                                                 |
+| bot.getSimulateHistory()            | Lấy lịch sử đánh giả lập<br />**Lưu ý: lịch sử mới sẽ được thêm vào đầu mảng (Để việc tính toán tiện hơn)** |
+| bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng                                       |
+| bot.get("tên")                      | Lấy dữ liệu riêng                                            |
+| bot.set("tên", dữ liệu)             | Set dữ liệu riêng                                            |
+| bot.getHistory()                    | Lấy lịch sử đánh thật<br />**Lưu ý: lịch sử mới sẽ được thêm vào đầu mảng (Để việc tính toán tiện hơn)** |
 
 
 
