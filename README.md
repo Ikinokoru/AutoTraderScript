@@ -227,6 +227,26 @@ async function predict(bot) {
 
 ![](https://i.imgur.com/v7T2vzE.png)
 
+
+
+## Orderbook (Nâng cao)
+
+Bạn có thể lấy Orderbook của binance để sử dụng cho việc vào lệnh
+
+```javascript
+async function predict(bot) {
+    // Lấy orderbook ở hiện tại
+    var orderbookNow = await now("orderbook");
+
+    print(orderbookNow.trade_history);
+    print(orderbookNow.order);
+
+    // Lấy orderbook ở những giây trước
+    var orderbook0 = await past("orderbook", 0);
+    var orderbook1 = await past("orderbook", 1);
+}
+```
+
 ## Danh sách các hàm hiện có
 
 **Các hàm cơ bản**
@@ -281,6 +301,7 @@ print(bb.lower_band);
 | ------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Những chỉ báo chỉ có<br />một giá trị duy nhất (Vd MA) | Ví dụ: MA(10,close,2)           | **value**                                                    | Giá trị của chỉ báo đó                                       |
 | Nến                                                    | CANDLE                          | **open<br />high<br />low<br />close**                       | Giá mở cửa <br />Giá cao nhất<br />Giá thấp nhát<br />Giá đóng cửa |
+| Orderbook                                              | ORDERBOOK                       | **trade_history <br />order**                                | Lịch sử khớp lệnh<br />Order đang đặt                        |
 | Bollinger Band                                         | BB(20,2)                        | **upper_band**<br />**middle_band**<br />**lower_band**      | Giá trị band trên<br />Giá trị band giữa<br />Giá trị band dưới |
 | Aroon                                                  | AROON(14)                       | **upper**<br />**lower**                                     |                                                              |
 | Chande Kroll Stop                                      | CHANDEKROLLSTOP(10,1,9)         | **long<br />short**                                          |                                                              |
