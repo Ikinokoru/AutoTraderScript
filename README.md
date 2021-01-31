@@ -247,6 +247,8 @@ async function predict(bot) {
 }
 ```
 
+Thuật toán sử dụng orderbook: [Orderbook.js](https://github.com/RemVN/AutoTraderScript/blob/master/beta/orderbook.js)
+
 ## Danh sách các hàm hiện có
 
 **Các hàm cơ bản**
