@@ -249,6 +249,32 @@ async function predict(bot) {
 
 Thuật toán sử dụng orderbook: [Orderbook.js](https://github.com/RemVN/AutoTraderScript/blob/master/beta/orderbook.js)
 
+
+
+## Bảng bóng nến (Nâng cao)
+
+Bạn có thể viết thuật toán đánh theo bóng nến bằng cách sử dụng bảng bóng nến đã được tích hợp sẵn
+
+```javascript
+function indicator() {
+    return [];
+}
+
+async function predict(bot) {
+    // Lấy bảng bóng nến
+    let history = await candleHistory();
+
+    // In ra dạng dữ liệu
+    print(history);
+
+    // In ra dạng hình ảnh trực quan
+    printCandleHistory(history);
+    return "skip";
+}
+```
+
+![](https://i.imgur.com/3ceBbo2.png)
+
 ## Danh sách các hàm hiện có
 
 **Các hàm cơ bản**
@@ -270,6 +296,9 @@ Thuật toán sử dụng orderbook: [Orderbook.js](https://github.com/RemVN/Aut
 | bot.get("tên")                      | Lấy dữ liệu riêng                                            |                                       |
 | bot.set("tên", dữ liệu)             | Set dữ liệu riêng                                            |                                       |
 | bot.getHistory()                    | Lấy lịch sử đánh thật<br />**Lưu ý: lịch sử mới sẽ được thêm vào<br /> đầu mảng (Để việc tính toán tiện hơn)** | [{amount: 100, win: true, money: 95}] |
+| bot.getConfig()                     | Lấy cấu hình của bot                                         |                                       |
+| candleHistory()                     | Lấy bảng bóng nến                                            |                                       |
+| printCandleHistory(history)         | In ra bảng bóng nến                                          |                                       |
 
 
 
