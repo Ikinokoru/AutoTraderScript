@@ -262,14 +262,14 @@ Thuật toán sử dụng orderbook: [Orderbook.js](https://github.com/RemVN/Aut
 
 **Các hàm nâng cao**
 
-| Tên hàm                             | Giải thích                                                   |
-| ----------------------------------- | ------------------------------------------------------------ |
-| bot.simulate("dự đoán")             | Đánh giả lập                                                 |
-| bot.getSimulateHistory()            | Lấy lịch sử đánh giả lập<br />**Lưu ý: lịch sử mới sẽ được thêm vào đầu mảng (Để việc tính toán tiện hơn)** |
-| bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng                                       |
-| bot.get("tên")                      | Lấy dữ liệu riêng                                            |
-| bot.set("tên", dữ liệu)             | Set dữ liệu riêng                                            |
-| bot.getHistory()                    | Lấy lịch sử đánh thật<br />**Lưu ý: lịch sử mới sẽ được thêm vào đầu mảng (Để việc tính toán tiện hơn)** |
+| Tên hàm                             | Giải thích                                                   | Output mẫu                            |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------------------------- |
+| bot.simulate("dự đoán")             | Đánh giả lập                                                 |                                       |
+| bot.getSimulateHistory()            | Lấy lịch sử đánh giả lập<br />**Lưu ý: lịch sử mới sẽ được thêm vào<br /> đầu mảng (Để việc tính toán tiện hơn)** |                                       |
+| bot.define("tên", dữ liệu mặc định) | Khởi tạo dữ liệu riêng                                       |                                       |
+| bot.get("tên")                      | Lấy dữ liệu riêng                                            |                                       |
+| bot.set("tên", dữ liệu)             | Set dữ liệu riêng                                            |                                       |
+| bot.getHistory()                    | Lấy lịch sử đánh thật<br />**Lưu ý: lịch sử mới sẽ được thêm vào<br /> đầu mảng (Để việc tính toán tiện hơn)** | [{amount: 100, win: true, money: 95}] |
 
 
 
